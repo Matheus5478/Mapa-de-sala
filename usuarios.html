@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Usuários - Sistema de Controle de Salas</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- CSS do projeto -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <!-- Header (componente) -->
+    <div id="app-header"></div>
+
+    <main class="flex-grow-1">
+      <div class="container-fluid">
+        <div class="row g-0">
+          <!-- MENU LATERAL -->
+          <aside class="col-12 col-md-3 col-lg-2 app-sidebar">
+            <nav class="app-sidebar-nav">
+              <a class="app-side-link" href="dashboard.html">
+                <i class="bi bi-grid-3x3-gap"></i>
+                <span>Dashboard</span>
+              </a>
+
+              <a class="app-side-link" href="salas.html">
+                <i class="bi bi-door-closed"></i>
+                <span>Salas</span>
+              </a>
+
+              <a class="app-side-link active" href="usuarios.html">
+                <i class="bi bi-people"></i>
+                <span>Usuários</span>
+              </a>
+
+              <a class="app-side-link" href="relatorios.html">
+                <i class="bi bi-clipboard-data"></i>
+                <span>Relatórios</span>
+              </a>
+
+              <a class="app-side-link" href="config.html">
+                <i class="bi bi-gear"></i>
+                <span>Configurações</span>
+              </a>
+            </nav>
+          </aside>
+
+          <!-- CONTEÚDO -->
+          <section class="col-12 col-md-9 col-lg-10 p-3 p-md-4 app-content">
+            <!-- Topo / Ações -->
+            <div
+              class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3"
+            >
+              <div>
+                <h4 class="mb-0">Usuários</h4>
+                <div class="small text-muted">
+                  Gerencie cadastro e níveis de acesso
+                </div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <button class="btn btn-sm app-btn-primary" id="btnNovoUsuario">
+                  <i class="bi bi-person-plus"></i> Novo Usuário
+                </button>
+              </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="app-card p-3 mb-3">
+              <div class="row g-2 align-items-center">
+                <div class="col-12 col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text app-input-icon"
+                      ><i class="bi bi-search"></i
+                    ></span>
+                    <input
+                      id="buscaUsuario"
+                      type="text"
+                      class="form-control"
+                      placeholder="Buscar por nome, cargo ou e-mail..."
+                    />
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                  <select id="filtroNivel" class="form-select">
+                    <option value="todos">Todos os níveis</option>
+                    <option value="admin">Administrador</option>
+                    <option value="coordenacao">Coordenação</option>
+                    <option value="docente">Docente</option>
+                    <option value="recepcao">Recepção</option>
+                  </select>
+                </div>
+
+                <div class="col-6 col-md-3 text-md-end">
+                  <button
+                    id="btnLimpar"
+                    class="btn btn-outline-secondary w-100 w-md-auto"
+                  >
+                    <i class="bi bi-arrow-counterclockwise"></i> Limpar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabela -->
+            <div class="app-card p-3">
+              <div
+                class="d-flex align-items-center justify-content-between mb-2"
+              >
+                <div class="fw-bold">Lista de Usuários</div>
+                <div class="small text-muted" id="totalUsuarios">
+                  0 usuários
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                  <thead class="small text-muted">
+                    <tr>
+                      <th>Nome</th>
+                      <th>Cargo</th>
+                      <th>E-mail</th>
+                      <th>Nível</th>
+                      <th class="text-end">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbodyUsuarios"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer (componente) -->
+    <div id="app-footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // ====== Component loader ======
+      async function loadComponent(id, file) {
+        const el = document.getElementById(id);
+        const res = await fetch(file);
+        el.innerHTML = await res.text();
+      }
+
+      // Header + Footer
+      loadComponent("app-header", "components/header.html").then(() => {
+        const pageTitle = document.getElementById("pageTitle");
+        if (pageTitle) pageTitle.textContent = "Usuários";
+
+        const userName = document.getElementById("userName");
+        if (userName) userName.textContent = "Admin";
+      });
+      loadComponent("app-footer", "components/footer.html");
+
+      // Proteção simples
+      if (localStorage.getItem("auth") !== "true") {
+        window.location.href = "login.html";
+      }
+
+      // ====== Dados (mock) ======
+      const usuariosPadrao = [
+        {
+          id: 1,
+          nome: "Admin",
+          cargo: "Administrador",
+          email: "admin@senac.com",
+          nivel: "admin",
+        },
+        {
+          id: 2,
+          nome: "Guilherme",
+          cargo: "Docente",
+          email: "guilherme@senac.com",
+          nivel: "docente",
+        },
+        {
+          id: 3,
+          nome: "Priscila",
+          cargo: "Recepção",
+          email: "priscila@senac.com",
+          nivel: "recepcao",
+        },
+        {
+          id: 4,
+          nome: "Leticia",
+          cargo: "Coordenação",
+          email: "leticia@senac.com",
+          nivel: "coordenacao",
+        },
+      ];
+
+      const KEY_USERS = "usuarios";
+      function carregarUsuarios() {
+        const raw = localStorage.getItem(KEY_USERS);
+        if (!raw) {
+          localStorage.setItem(KEY_USERS, JSON.stringify(usuariosPadrao));
+          return [...usuariosPadrao];
+        }
+        return JSON.parse(raw);
+      }
+      function salvarUsuarios(lista) {
+        localStorage.setItem(KEY_USERS, JSON.stringify(lista));
+      }
+
+      let usuarios = carregarUsuarios();
+
+      // ====== Badge nível ======
+      function badgeNivel(nivel) {
+        const map = {
+          admin: {
+            label: "Admin",
+            cls: "text-bg-danger",
+            icon: "bi-shield-lock",
+          },
+          coordenacao: {
+            label: "Coordenação",
+            cls: "text-bg-primary",
+            icon: "bi-diagram-3",
+          },
+          docente: {
+            label: "Docente",
+            cls: "text-bg-success",
+            icon: "bi-mortarboard",
+          },
+          recepcao: {
+            label: "Recepção",
+            cls: "text-bg-secondary",
+            icon: "bi-person-badge",
+          },
+        };
+        const x = map[nivel] || {
+          label: "Outro",
+          cls: "text-bg-light",
+          icon: "bi-person",
+        };
+        return `<span class="badge ${x.cls}"><i class="bi ${x.icon}"></i> ${x.label}</span>`;
+      }
+
+      // ====== Render ======
+      function renderUsuarios(lista) {
+        document.getElementById("totalUsuarios").textContent =
+          `${lista.length} usuários`;
+
+        const html = lista
+          .map(
+            (u) => `
+        <tr>
+          <td class="fw-semibold">${u.nome}</td>
+          <td>${u.cargo}</td>
+          <td>${u.email}</td>
+          <td>${badgeNivel(u.nivel)}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary" data-action="editar" data-id="${u.id}">
+              <i class="bi bi-pencil"></i> Editar
+            </button>
+            <button class="btn btn-sm btn-outline-danger" data-action="excluir" data-id="${u.id}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `,
+          )
+          .join("");
+
+        document.getElementById("tbodyUsuarios").innerHTML =
+          html ||
+          `
+        <tr>
+          <td colspan="5" class="text-center text-muted py-4">Nenhum usuário encontrado.</td>
+        </tr>
+      `;
+      }
+
+      // ====== Filtros ======
+      function aplicarFiltros() {
+        const termo = document
+          .getElementById("buscaUsuario")
+          .value.toLowerCase()
+          .trim();
+        const nivel = document.getElementById("filtroNivel").value;
+
+        let lista = [...usuarios];
+
+        if (termo) {
+          lista = lista.filter(
+            (u) =>
+              u.nome.toLowerCase().includes(termo) ||
+              u.cargo.toLowerCase().includes(termo) ||
+              u.email.toLowerCase().includes(termo),
+          );
+        }
+
+        if (nivel !== "todos") {
+          lista = lista.filter((u) => u.nivel === nivel);
+        }
+
+        renderUsuarios(lista);
+      }
+
+      document
+        .getElementById("buscaUsuario")
+        .addEventListener("input", aplicarFiltros);
+      document
+        .getElementById("filtroNivel")
+        .addEventListener("change", aplicarFiltros);
+
+      document.getElementById("btnLimpar").addEventListener("click", () => {
+        document.getElementById("buscaUsuario").value = "";
+        document.getElementById("filtroNivel").value = "todos";
+        renderUsuarios(usuarios);
+      });
+
+      // ====== Ações ======
+      document
+        .getElementById("tbodyUsuarios")
+        .addEventListener("click", (e) => {
+          const btn = e.target.closest("button");
+          if (!btn) return;
+
+          const action = btn.getAttribute("data-action");
+          const id = Number(btn.getAttribute("data-id"));
+          const idx = usuarios.findIndex((u) => u.id === id);
+          if (idx === -1) return;
+
+          if (action === "editar") {
+            const u = usuarios[idx];
+            alert(
+              `(Mock) Editar usuário:\n${u.nome}\n${u.email}\nNível: ${u.nivel}`,
+            );
+          }
+
+          if (action === "excluir") {
+            const u = usuarios[idx];
+            const ok = confirm(`Excluir o usuário "${u.nome}"?`);
+            if (!ok) return;
+
+            usuarios.splice(idx, 1);
+            salvarUsuarios(usuarios);
+            aplicarFiltros();
+          }
+        });
+
+      // ====== Novo usuário (placeholder) ======
+      document
+        .getElementById("btnNovoUsuario")
+        .addEventListener("click", () => {
+          window.location.href = "cadastro.html";
+        });
+
+      // Logout (delegação)
+      document.addEventListener("click", function (e) {
+        if (e.target.closest("#btnLogout")) {
+          localStorage.removeItem("auth");
+          window.location.href = "login.html";
+        }
+      });
+
+      // Inicial
+      renderUsuarios(usuarios);
+    </script>
+  </body>
+</html>
