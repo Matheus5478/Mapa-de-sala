@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="pt-br">
+ 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastrar Salas</title>
+ 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+ 
+    <link rel="stylesheet" href="assets/css/style.css" />
+ 
+    <script>
+        (function () {
+            const tema = localStorage.getItem("tema") || "light";
+            document.documentElement.setAttribute("data-bs-theme", tema);
+        })();
+    </script>
+</head>
+ 
+<body>
+ 
+    <!-- HEADER -->
+    <div id="app-header"></div>
+ 
+    <main class="flex-grow-1">
+        <div class="container-fluid">
+            <div class="row g-0">
+ 
+                <!-- SIDEBAR -->
+                <aside class="col-12 col-md-3 col-lg-2 app-sidebar">
+                    <nav class="app-sidebar-nav">
+ 
+                        <a class="app-side-link" href="dashboard.html">
+                            <i class="bi bi-grid-3x3-gap"></i>
+                            <span>Dashboard</span>
+                        </a>
+ 
+                        <a class="app-side-link active" href="salas.html">
+                            <i class="bi bi-door-closed"></i>
+                            <span>Salas</span>
+                        </a>
+ 
+                        <a class="app-side-link" href="usuarios.html">
+                            <i class="bi bi-people"></i>
+                            <span>Usuários</span>
+                        </a>
+ 
+                        <a class="app-side-link" href="relatorios.html">
+                            <i class="bi bi-clipboard-data"></i>
+                            <span>Relatórios</span>
+                        </a>
+ 
+                        <a class="app-side-link" href="configuracao.html">
+                            <i class="bi bi-gear"></i>
+                            <span>Configurações</span>
+                        </a>
+ 
+                    </nav>
+                </aside>
+ 
+                <!-- CONTEÚDO -->
+                <section class="col-12 col-md-9 col-lg-10 p-3 p-md-4 app-content">
+ 
+                    <!-- TOPO -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h4 class="mb-0">Cadastrar Sala</h4>
+                            <div class="small text-muted">
+                                Preencha os dados da sala
+                            </div>
+                        </div>
+ 
+                        <a href="salas.html" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left"></i> Voltar
+                        </a>
+                    </div>
+ 
+                    <!-- CARD -->
+                    <div class="app-card p-4">
+ 
+                        <!-- Mensagens -->
+                        <div id="msgOk" class="alert alert-success d-none">
+                            Sala cadastrada com sucesso!
+                        </div>
+ 
+                        <div id="msgErro" class="alert alert-danger d-none">
+                            Preencha os campos corretamente.
+                        </div>
+ 
+                        <form id="formSala" novalidate>
+                            <div class="row g-3">
+ 
+                                <!-- Nome -->
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Nome da Sala</label>
+                                    <input type="text" id="nome" class="form-control" required minlength="3">
+                                    <div class="invalid-feedback">Informe o nome.</div>
+                                </div>
+ 
+                                <!-- Tipo -->
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Tipo</label>
+                                    <select id="tipo" class="form-select" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="sala">Sala comum</option>
+                                        <option value="laboratorio">Laboratório</option>
+                                        <option value="auditorio">Auditório</option>
+                                    </select>
+                                    <div class="invalid-feedback">Selecione o tipo.</div>
+                                </div>
+ 
+                                <!-- Número -->
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Número</label>
+                                    <input type="number" id="numero" class="form-control" required>
+                                </div>
+ 
+                                <!-- Capacidade -->
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Capacidade</label>
+                                    <input type="number" id="capacidade" class="form-control" required>
+                                </div>
+ 
+                            </div>
+ 
+                            <hr class="my-4">
+ 
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="reset" class="btn btn-outline-secondary">
+                                    <i class="bi bi-eraser"></i> Limpar
+                                </button>
+ 
+                                <button type="submit" class="btn app-btn-primary">
+                                    <i class="bi bi-save"></i> Salvar
+                                </button>
+                            </div>
+ 
+                        </form>
+                    </div>
+                             <hr>
+ 
+ 
+ 
+                        <!-- TOPO -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h4 class="mb-0">Cadastrar tipo de Sala</h4>
+                            <div class="small text-muted">
+                                Preencha o tipo dasala
+                            </div>
+                        </div>
+                    </div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                    <!-- CARD  Tipo Sala-->
+                    <div class="app-card p-4">
+ 
+                        <!-- Mensagens -->
+                        <div id="msgOk" class="alert alert-success d-none">
+                           Tipo da Sala cadastrada com sucesso!
+                        </div>
+ 
+                        <div id="msgErro" class="alert alert-danger d-none">
+                            Preencha os campos corretamente.
+                        </div>
+ 
+                        <form id="formTipoSala" novalidate>
+                            <div class="row g-3">
+ 
+                                <!-- TipoSala -->
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Tipo da Sala</label>
+                                    <input type="text" id="nome" class="form-control" required minlength="3">
+                                    <div class="invalid-feedback">Informe o novo Tipo De Sala.</div>
+                                </div>
+ 
+                                  
+ 
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="reset" class="btn btn-outline-secondary">
+                                    <i class="bi bi-eraser"></i> Limpar
+                                </button>
+ 
+                                <button type="submit" class="btn app-btn-primary">
+                                    <i class="bi bi-save"></i> Salvar
+                                </button>
+                            </div>
+                             
+ 
+ 
+ 
+                               
+ 
+                            </div>
+                        </form>
+                    </div>
+                     
+ 
+ 
+ 
+ 
+ 
+                </section>
+            </div>
+        </div>
+
+     </main>
+ 
+    <!-- FOOTER -->
+    <div id="app-footer"></div>
+ 
+    <!-- SCRIPT ORIGINAL (mantido) -->
+    <script>
+ 
+      // ====== Loader de componentes ======
+    async function loadComponent(id, file) {
+      const el = document.getElementById(id);
+      const res = await fetch(file);
+      el.innerHTML = await res.text();
+    }
+ 
+    loadComponent("app-header", "components/header.html").then(() => {
+      const pageTitle = document.getElementById("pageTitle");
+      if (pageTitle) pageTitle.textContent = "Cadastrar Salas";
+    });
+    loadComponent("app-footer", "components/footer.html");
+ 
+   
+        const KEY_SALAS = "salas";
+ 
+        function carregarSalas() {
+            return JSON.parse(localStorage.getItem(KEY_SALAS)) || [];
+        }
+ 
+        function salvarSalas(lista) {
+            localStorage.setItem(KEY_SALAS, JSON.stringify(lista));
+        }
+ 
+        function mostrarMsg(tipo) {
+            document.getElementById("msgOk").classList.add("d-none");
+            document.getElementById("msgErro").classList.add("d-none");
+ 
+            if (tipo === "ok") {
+                document.getElementById("msgOk").classList.remove("d-none");
+            } else {
+                document.getElementById("msgErro").classList.remove("d-none");
+            }
+        }
+ 
+        const form = document.getElementById("formSala");
+ 
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+ 
+            if (!form.checkValidity()) {
+                form.classList.add("was-validated");
+                mostrarMsg("erro");
+                return;
+            }
+ 
+            const novaSala = {
+                id: Date.now(),
+                nome: document.getElementById("nome").value.trim(),
+                tipo: document.getElementById("tipo").value,
+                numero: Number(document.getElementById("numero").value),
+                capacidade: Number(document.getElementById("capacidade").value)
+            };
+ 
+            const lista = carregarSalas();
+ 
+            const existe = lista.some(s => s.numero === novaSala.numero);
+            if (existe) {
+                alert("Já existe uma sala com esse número.");
+                return;
+            }
+ 
+            lista.push(novaSala);
+            salvarSalas(lista);
+ 
+            form.reset();
+            form.classList.remove("was-validated");
+ 
+            mostrarMsg("ok");
+ 
+            setTimeout(() => {
+                window.location.href = "salas.html";
+            }, 800);
+        });
+
+        const KEY_TIPOS = "tipos_sala";
+
+function carregarTipos() {
+    return JSON.parse(localStorage.getItem(KEY_TIPOS)) || [];
+}
+
+function salvarTipos(lista) {
+    localStorage.setItem(KEY_TIPOS, JSON.stringify(lista));
+}
+function preencherSelectTipos() {
+    const select = document.getElementById("tipo");
+    const tipos = carregarTipos();
+
+    select.innerHTML = '<option value="">Selecione...</option>';
+
+    tipos.forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t;
+        opt.textContent = t;
+        select.appendChild(opt);
+    });
+}
+document.getElementById("btnAddTipo").addEventListener("click", () => {
+    const input = document.getElementById("novoTipo");
+    const valor = input.value.trim();
+
+    if (valor.length < 3) {
+        alert("Digite um tipo válido.");
+        return;
+    }
+
+    const tipos = carregarTipos();
+
+    if (tipos.includes(valor)) {
+        alert("Esse tipo já existe.");
+        return;
+    }
+
+    tipos.push(valor);
+    salvarTipos(tipos);
+
+    input.value = "";
+    preencherSelectTipos();
+});
+    </script>
+ 
+</body>
+ 
+</html>
+ 

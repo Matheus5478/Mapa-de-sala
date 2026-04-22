@@ -298,3 +298,93 @@ a:hover {
     flex-shrink: 0;
   }
 }
+ 
+/* ==================================================
+   🌙 DARK MODE (ORGANIZADO)
+================================================== */
+ 
+/* TRANSIÇÃO */
+body {
+  transition: background 0.3s, color 0.3s;
+}
+ 
+/* FUNDO GLOBAL */
+[data-bs-theme="dark"] body {
+  background: #121212 !important;
+  color: #ffffff;
+}
+ 
+/* CONTEÚDO */
+[data-bs-theme="dark"] main,
+[data-bs-theme="dark"] .app-content {
+  background: #121212;
+}
+ 
+/* SIDEBAR */
+[data-bs-theme="dark"] .app-sidebar {
+  background: #181818;
+  border-right: 1px solid #2a2a2a;
+}
+ 
+/* CARDS */
+[data-bs-theme="dark"] .app-card {
+  background: #1e1e1e;
+  color: #fff;
+  border: 1px solid #2c2c2c;
+}
+ 
+/* MENU */
+[data-bs-theme="dark"] .app-side-link {
+  color: #ccc;
+}
+ 
+[data-bs-theme="dark"] .app-side-link:hover {
+  background: #2a2a2a;
+}
+ 
+[data-bs-theme="dark"] .app-side-link.active {
+  background: #004A8D;
+  color: #fff;
+}
+ 
+/* INPUTS */
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select {
+  background: #2a2a2a;
+  color: #fff;
+  border-color: #444;
+}
+ 
+[data-bs-theme="dark"] .form-control::placeholder {
+  color: #aaa;
+}
+ 
+/* INPUT ICON */
+[data-bs-theme="dark"] .app-input-icon {
+  background: #004A8D;
+  color: #fff;
+}
+ 
+/* BOTÕES */
+[data-bs-theme="dark"] .btn-outline-secondary {
+  color: #ccc;
+  border-color: #555;
+}
+ 
+[data-bs-theme="dark"] .btn-outline-secondary:hover {
+  background: #333;
+}
+ 
+/* TABELAS */
+[data-bs-theme="dark"] .table {
+  color: #fff;
+}
+ 
+[data-bs-theme="dark"] .table thead {
+  color: #aaa;
+}
+ 
+[data-bs-theme="dark"] .table tbody tr {
+  border-color: #2a2a2a;
+}
+ 

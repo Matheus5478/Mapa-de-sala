@@ -1,197 +1,194 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Salas - Sistema de Controle de Salas</title>
 
-    <!-- Bootstrap 5 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Bootstrap Icons -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Salas - Sistema de Controle de Salas</title>
 
-    <!-- CSS do projeto -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
 
-  <body>
-    <div id="app-header"></div>
-
-    <main class="flex-grow-1">
-      <div class="container-fluid">
-        <div class="row g-0">
-
-          <!-- MENU -->
-          <aside class="col-12 col-md-3 col-lg-2 app-sidebar">
-            <nav class="app-sidebar-nav">
-              <a class="app-side-link" href="dashboard.html">
-                <i class="bi bi-grid-3x3-gap"></i>
-                <span>Dashboard</span>
-              </a>
-
-              <a class="app-side-link active" href="salas.html">
-                <i class="bi bi-door-closed"></i>
-                <span>Salas</span>
-              </a>
-
-              <a class="app-side-link" href="usuarios.html">
-                <i class="bi bi-people"></i>
-                <span>Usuários</span>
-              </a>
-               <a class="app-side-link" href="relatorios.html">
-                <i class="bi bi-clipboard-data"></i>
-                <span>Relatórios</span>
-              </a>
-
-              <a class="app-side-link" href="config.html">
-                <i class="bi bi-gear"></i>
-                <span>Configurações</span>
-              </a>
-            </nav>
-          </aside>
-
-          <!-- CONTEÚDO -->
-          <section class="col-12 col-md-9 col-lg-10 p-3 p-md-4 app-content">
-
-            <!-- TOPO -->
-            <div class="d-flex justify-content-between mb-3">
-              <div>
-                <h4 class="mb-0">Salas</h4>
-                <div class="small text-muted">
-                  Gerencie as salas disponíveis
-                </div>
-              </div>
-
-              <button class="btn btn-sm app-btn-primary" id="btnNovaSala">
-                <i class="bi bi-plus-circle"></i> Nova Sala
-              </button>
-            </div>
-
-            <!-- FILTROS -->
-            <div class="app-card p-3 mb-3">
-              <div class="row g-2">
-                <div class="col-md-6">
-                  <input
-                    id="buscaSala"
-                    type="text"
-                    class="form-control"
-                    placeholder="Buscar por nome ou tipo..."
-                  />
-                </div>
-
-                <div class="col-md-3">
-                  <select id="filtroTipo" class="form-select">
-                    <option value="todos">Todos os tipos</option>
-                    <option value="laboratorio">Laboratório</option>
-                    <option value="sala">Sala comum</option>
-                    <option value="auditorio">Auditório</option>
-                  </select>
-                </div>
-
-                <div class="col-md-3">
-                  <button id="btnLimpar" class="btn btn-outline-secondary w-100">
-                    Limpar
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- TABELA -->
-            <div class="app-card p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <div class="fw-bold">Lista de Salas</div>
-                <div id="totalSalas" class="small text-muted">0 salas</div>
-              </div>
-
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Nome</th>
-                      <th>Capacidade</th>
-                      <th>Tipo</th>
-                      <th class="text-end">Ações</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tbodySalas"></tbody>
-                </table>
-              </div>
-            </div>
-
-          </section>
-        </div>
-      </div>
-    </main>
-
-    <div id="app-footer"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+  <!-- CSS do projeto -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- ===== MODO NOTURNO -> TESTE ===== -->
     <script>
-      // ===== COMPONENTES =====
-      async function loadComponent(id, file) {
-        const el = document.getElementById(id);
-        const res = await fetch(file);
-        el.innerHTML = await res.text();
+        (function () {
+            const tema = localStorage.getItem("tema") || "light";
+            document.documentElement.setAttribute("data-bs-theme", tema);
+        })();
+    </script>
+</head>
+
+<body>
+  <div id="app-header"></div>
+
+  <main class="flex-grow-1">
+    <div class="container-fluid">
+      <div class="row g-0">
+
+        <!-- MENU -->
+        <aside class="col-12 col-md-3 col-lg-2 app-sidebar">
+          <nav class="app-sidebar-nav">
+            <a class="app-side-link" href="dashboard.html">
+              <i class="bi bi-grid-3x3-gap"></i>
+              <span>Dashboard</span>
+            </a>
+
+            <a class="app-side-link active" href="salas.html">
+              <i class="bi bi-door-closed"></i>
+              <span>Salas</span>
+            </a>
+
+            <a class="app-side-link" href="usuarios.html">
+              <i class="bi bi-people"></i>
+              <span>Usuários</span>
+            </a>
+            <a class="app-side-link" href="relatorios.html">
+              <i class="bi bi-clipboard-data"></i>
+              <span>Relatórios</span>
+            </a>
+
+            <a class="app-side-link" href="configuracao.html">
+              <i class="bi bi-gear"></i>
+              <span>Configurações</span>
+            </a>
+          </nav>
+        </aside>
+
+        <!-- CONTEÚDO -->
+        <section class="col-12 col-md-9 col-lg-10 p-3 p-md-4 app-content">
+
+          <!-- TOPO -->
+          <div class="d-flex justify-content-between mb-3">
+            <div>
+              <h4 class="mb-0">Salas</h4>
+              <div class="small text-muted">
+                Gerencie as salas disponíveis
+              </div>
+            </div>
+
+            <button class="btn btn-sm app-btn-primary" id="btnNovaSala">
+              <i class="bi bi-plus-circle"></i> Nova Sala
+            </button>
+          </div>
+
+          <!-- FILTROS -->
+          <div class="app-card p-3 mb-3">
+            <div class="row g-2">
+              <div class="col-md-6">
+                <input id="buscaSala" type="text" class="form-control" placeholder="Buscar por nome ou tipo..." />
+              </div>
+
+              <div class="col-md-3">
+                <select id="filtroTipo" class="form-select">
+                  <option value="todos">Todos os tipos</option>
+                  <option value="laboratorio">Laboratório</option>
+                  <option value="sala">Sala comum</option>
+                  <option value="auditorio">Auditório</option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <button id="btnLimpar" class="btn btn-outline-secondary w-100">
+                  Limpar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TABELA -->
+          <div class="app-card p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <div class="fw-bold">Lista de Salas</div>
+              <div id="totalSalas" class="small text-muted">0 salas</div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Capacidade</th>
+                    <th>Tipo</th>
+                    <th class="text-end">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodySalas"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ===== COMPONENTES =====
+    async function loadComponent(id, file) {
+      const el = document.getElementById(id);
+      const res = await fetch(file);
+      el.innerHTML = await res.text();
+    }
+
+    loadComponent("app-header", "components/header.html");
+    loadComponent("app-footer", "components/footer.html");
+
+    // ===== PROTEÇÃO =====
+    if (localStorage.getItem("auth") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    // ===== DADOS =====
+    const salasPadrao = [
+      { id: 1, nome: "Lab Informática 1", capacidade: 30, tipo: "laboratorio" },
+      { id: 2, nome: "Sala 101", capacidade: 40, tipo: "sala" },
+      { id: 3, nome: "Auditório Principal", capacidade: 100, tipo: "auditorio" },
+    ];
+
+    const KEY = "salas";
+
+    function carregarSalas() {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) {
+        localStorage.setItem(KEY, JSON.stringify(salasPadrao));
+        return salasPadrao;
       }
+      return JSON.parse(raw);
+    }
 
-      loadComponent("app-header", "components/header.html");
-      loadComponent("app-footer", "components/footer.html");
+    function salvarSalas(lista) {
+      localStorage.setItem(KEY, JSON.stringify(lista));
+    }
 
-      // ===== PROTEÇÃO =====
-      if (localStorage.getItem("auth") !== "true") {
-        window.location.href = "login.html";
-      }
+    let salas = carregarSalas();
 
-      // ===== DADOS =====
-      const salasPadrao = [
-        { id: 1, nome: "Lab Informática 1", capacidade: 30, tipo: "laboratorio" },
-        { id: 2, nome: "Sala 101", capacidade: 40, tipo: "sala" },
-        { id: 3, nome: "Auditório Principal", capacidade: 100, tipo: "auditorio" },
-      ];
+    // ===== BADGE =====
+    function badgeTipo(tipo) {
+      const map = {
+        laboratorio: "text-bg-primary",
+        sala: "text-bg-secondary",
+        auditorio: "text-bg-success",
+      };
 
-      const KEY = "salas";
+      return `<span class="badge ${map[tipo]}">${tipo}</span>`;
+    }
 
-      function carregarSalas() {
-        const raw = localStorage.getItem(KEY);
-        if (!raw) {
-          localStorage.setItem(KEY, JSON.stringify(salasPadrao));
-          return salasPadrao;
-        }
-        return JSON.parse(raw);
-      }
+    // ===== RENDER =====
+    function renderSalas(lista) {
+      document.getElementById("totalSalas").textContent =
+        lista.length + " salas";
 
-      function salvarSalas(lista) {
-        localStorage.setItem(KEY, JSON.stringify(lista));
-      }
-
-      let salas = carregarSalas();
-
-      // ===== BADGE =====
-      function badgeTipo(tipo) {
-        const map = {
-          laboratorio: "text-bg-primary",
-          sala: "text-bg-secondary",
-          auditorio: "text-bg-success",
-        };
-
-        return `<span class="badge ${map[tipo]}">${tipo}</span>`;
-      }
-
-      // ===== RENDER =====
-      function renderSalas(lista) {
-        document.getElementById("totalSalas").textContent =
-          lista.length + " salas";
-
-        const html = lista
-          .map(
-            (s) => `
+      const html = lista
+        .map(
+          (s) => `
           <tr>
             <td>${s.nome}</td>
             <td>${s.capacidade}</td>
@@ -206,80 +203,82 @@
             </td>
           </tr>
         `,
-          )
-          .join("");
+        )
+        .join("");
 
-        document.getElementById("tbodySalas").innerHTML = html;
+      document.getElementById("tbodySalas").innerHTML = html;
+    }
+
+    // ===== FILTROS =====
+    function aplicarFiltros() {
+      const termo = document.getElementById("buscaSala").value.toLowerCase();
+      const tipo = document.getElementById("filtroTipo").value;
+
+      let lista = [...salas];
+
+      if (termo) {
+        lista = lista.filter(
+          (s) =>
+            s.nome.toLowerCase().includes(termo) ||
+            s.tipo.toLowerCase().includes(termo),
+        );
       }
 
-      // ===== FILTROS =====
-      function aplicarFiltros() {
-        const termo = document.getElementById("buscaSala").value.toLowerCase();
-        const tipo = document.getElementById("filtroTipo").value;
-
-        let lista = [...salas];
-
-        if (termo) {
-          lista = lista.filter(
-            (s) =>
-              s.nome.toLowerCase().includes(termo) ||
-              s.tipo.toLowerCase().includes(termo),
-          );
-        }
-
-        if (tipo !== "todos") {
-          lista = lista.filter((s) => s.tipo === tipo);
-        }
-
-        renderSalas(lista);
+      if (tipo !== "todos") {
+        lista = lista.filter((s) => s.tipo === tipo);
       }
 
-      document
-        .getElementById("buscaSala")
-        .addEventListener("input", aplicarFiltros);
+      renderSalas(lista);
+    }
 
-      document
-        .getElementById("filtroTipo")
-        .addEventListener("change", aplicarFiltros);
+    document
+      .getElementById("buscaSala")
+      .addEventListener("input", aplicarFiltros);
 
-      document.getElementById("btnLimpar").addEventListener("click", () => {
-        document.getElementById("buscaSala").value = "";
-        document.getElementById("filtroTipo").value = "todos";
-        renderSalas(salas);
-      });
+    document
+      .getElementById("filtroTipo")
+      .addEventListener("change", aplicarFiltros);
 
-      // ===== AÇÕES =====
-      document
-        .getElementById("tbodySalas")
-        .addEventListener("click", (e) => {
-          const btn = e.target.closest("button");
-          if (!btn) return;
-
-          const id = Number(btn.dataset.id);
-          const action = btn.dataset.action;
-
-          const idx = salas.findIndex((s) => s.id === id);
-
-          if (action === "excluir") {
-            if (confirm("Excluir sala?")) {
-              salas.splice(idx, 1);
-              salvarSalas(salas);
-              aplicarFiltros();
-            }
-          }
-
-          if (action === "editar") {
-            alert("(Mock) Editar sala");
-          }
-        });
-
-      // ===== NOVA SALA =====
-      document.getElementById("btnNovaSala").addEventListener("click", () => {
-        alert("(Mock) Criar nova sala");
-      });
-
-      // ===== INIT =====
+    document.getElementById("btnLimpar").addEventListener("click", () => {
+      document.getElementById("buscaSala").value = "";
+      document.getElementById("filtroTipo").value = "todos";
       renderSalas(salas);
-    </script>
-  </body>
+    });
+
+    // ===== AÇÕES =====
+    document
+      .getElementById("tbodySalas")
+      .addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+
+        const id = Number(btn.dataset.id);
+        const action = btn.dataset.action;
+
+        const idx = salas.findIndex((s) => s.id === id);
+
+        if (action === "excluir") {
+          if (confirm("Excluir sala?")) {
+            salas.splice(idx, 1);
+            salvarSalas(salas);
+            aplicarFiltros();
+          }
+        }
+
+        if (action === "editar") {
+          alert("(Mock) Editar sala");
+        }
+      });
+
+    // ===== NOVA SALA =====
+    document.getElementById("btnNovaSala").addEventListener("click", () => {
+      window.location.href = "cadastrosalas.html";
+    });
+
+    // ===== INIT =====
+    renderSalas(salas);
+
+  </script>
+</body>
+
 </html>

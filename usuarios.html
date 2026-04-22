@@ -18,6 +18,13 @@
 
     <!-- CSS do projeto -->
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- ===== MODO NOTURNO -> TESTE ===== -->
+    <script>
+        (function () {
+            const tema = localStorage.getItem("tema") || "light";
+            document.documentElement.setAttribute("data-bs-theme", tema);
+        })();
+    </script>
   </head>
 
   <body>
@@ -50,7 +57,7 @@
                 <span>Relatórios</span>
               </a>
 
-              <a class="app-side-link" href="config.html">
+              <a class="app-side-link" href="configuracao.html">
                 <i class="bi bi-gear"></i>
                 <span>Configurações</span>
               </a>

@@ -1,348 +1,308 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cadastrar Usuário - Sistema de Controle de Salas</title>
 
-    <!-- Bootstrap 5 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Bootstrap Icons -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastrar Usuário - Sistema de Controle de Salas</title>
 
-    <!-- CSS do projeto -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
 
-  <body>
-    <!-- Header (componente) -->
-    <div id="app-header"></div>
-
-    <main class="flex-grow-1">
-      <div class="container-fluid">
-        <div class="row g-0">
-          <!-- MENU LATERAL -->
-          <aside class="col-12 col-md-3 col-lg-2 app-sidebar">
-            <nav class="app-sidebar-nav">
-              <a class="app-side-link" href="dashboard.html">
-                <i class="bi bi-grid-3x3-gap"></i>
-                <span>Dashboard</span>
-              </a>
-
-              <a class="app-side-link" href="salas.html">
-                <i class="bi bi-door-closed"></i>
-                <span>Salas</span>
-              </a>
-
-              <a class="app-side-link active" href="usuarios.html">
-                <i class="bi bi-people"></i>
-                <span>Usuários</span>
-              </a>
-
-              <a class="app-side-link" href="relatorios.html">
-                <i class="bi bi-clipboard-data"></i>
-                <span>Relatórios</span>
-              </a>
-
-              <a class="app-side-link" href="config.html">
-                <i class="bi bi-gear"></i>
-                <span>Configurações</span>
-              </a>
-            </nav>
-          </aside>
-
-          <!-- CONTEÚDO -->
-          <section class="col-12 col-md-9 col-lg-10 p-3 p-md-4 app-content">
-            <!-- Topo -->
-            <div
-              class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3"
-            >
-              <div>
-                <h4 class="mb-0">Cadastrar Usuário</h4>
-                <div class="small text-muted">
-                  Preencha os dados para criar um novo acesso
-                </div>
-              </div>
-
-              <div class="d-flex gap-2">
-                <a
-                  class="btn btn-outline-secondary btn-sm"
-                  href="usuarios.html"
-                >
-                  <i class="bi bi-arrow-left"></i> Voltar
-                </a>
-              </div>
-            </div>
-
-            <!-- Card -->
-            <div class="app-card p-4">
-              <!-- Mensagens -->
-              <div id="msgOk" class="alert alert-success d-none" role="alert">
-                <i class="bi bi-check-circle"></i> Usuário cadastrado com
-                sucesso!
-              </div>
-
-              <div id="msgErro" class="alert alert-danger d-none" role="alert">
-                <i class="bi bi-exclamation-triangle"></i> Verifique os campos
-                obrigatórios.
-              </div>
-
-              <form id="formUsuario" novalidate>
-                <div class="row g-3">
-                  <!-- Nome -->
-                  <div class="col-12 col-md-6">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nome"
-                      placeholder="Nome completo"
-                      minlength="3"
-                      required
-                    />
-                    <div class="invalid-feedback">
-                      Informe o nome (mín. 3 caracteres).
-                    </div>
-                  </div>
-
-                  <!-- Cargo -->
-                  <div class="col-12 col-md-6">
-                    <label for="cargo" class="form-label">Cargo</label>
-                    <select class="form-select" id="cargo" required>
-                      <option value="" selected disabled>Selecione...</option>
-                      <option>Administrador</option>
-                      <option>Coordenação</option>
-                      <option>Docente</option>
-                      <option>Recepção</option>
-                      <option>Outro</option>
-                    </select>
-                    <div class="invalid-feedback">Selecione o cargo.</div>
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-12 col-md-6">
-                    <label for="email" class="form-label">E-mail</label>
-                    <div class="input-group">
-                      <span class="input-group-text app-input-icon"
-                        ><i class="bi bi-envelope-fill"></i
-                      ></span>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        placeholder="email@exemplo.com"
-                        required
-                      />
-                      <div class="invalid-feedback">
-                        Informe um e-mail válido.
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Nível de acesso -->
-                  <div class="col-12 col-md-6">
-                    <label for="nivel" class="form-label"
-                      >Nível de acesso</label
-                    >
-                    <select class="form-select" id="nivel" required>
-                      <option value="" selected disabled>Selecione...</option>
-                      <option value="admin">Administrador</option>
-                      <option value="coordenacao">Coordenação</option>
-                      <option value="docente">Docente</option>
-                      <option value="recepcao">Recepção</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecione o nível de acesso.
-                    </div>
-                  </div>
-
-                  <!-- Senha -->
-                  <div class="col-12 col-md-6">
-                    <label for="senha" class="form-label">Senha</label>
-                    <div class="input-group">
-                      <span class="input-group-text app-input-icon"
-                        ><i class="bi bi-lock-fill"></i
-                      ></span>
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="senha"
-                        placeholder="Crie uma senha"
-                        minlength="4"
-                        required
-                      />
-                      <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        id="btnToggleSenha"
-                        aria-label="Mostrar/ocultar senha"
-                      >
-                        <i class="bi bi-eye"></i>
-                      </button>
-                      <div class="invalid-feedback">
-                        Informe uma senha (mín. 4 caracteres).
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Confirmar senha -->
-                  <div class="col-12 col-md-6">
-                    <label for="confSenha" class="form-label"
-                      >Confirmar senha</label
-                    >
-                    <div class="input-group">
-                      <span class="input-group-text app-input-icon"
-                        ><i class="bi bi-shield-lock-fill"></i
-                      ></span>
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="confSenha"
-                        placeholder="Repita a senha"
-                        minlength="4"
-                        required
-                      />
-                      <div class="invalid-feedback">Confirme a senha.</div>
-                    </div>
-                  </div>
-                </div>
-
-                <hr class="my-4" />
-
-                <div class="d-flex flex-wrap gap-2 justify-content-end">
-                  <button type="reset" class="btn btn-outline-secondary">
-                    <i class="bi bi-eraser"></i> Limpar
-                  </button>
-
-                  <button type="submit" class="btn app-btn-primary">
-                    <i class="bi bi-save"></i> Salvar Usuário
-                  </button>
-                </div>
-              </form>
-            </div>
-          </section>
-        </div>
-      </div>
-    </main>
-
-    <!-- Footer (componente) -->
-    <div id="app-footer"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+  <!-- CSS do projeto -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- ===== MODO NOTURNO -> TESTE ===== -->
     <script>
-      // ====== Loader de componentes ======
-      async function loadComponent(id, file) {
-        const el = document.getElementById(id);
-        const res = await fetch(file);
-        el.innerHTML = await res.text();
+        (function () {
+            const tema = localStorage.getItem("tema") || "light";
+            document.documentElement.setAttribute("data-bs-theme", tema);
+        })();
+    </script>
+</head>
+
+<body>
+  <!-- Header (componente) -->
+  <div id="app-header"></div>
+
+  <main class="flex-grow-1">
+    <div class="container-fluid">
+      <div class="row g-0">
+        <!-- MENU LATERAL -->
+        <aside class="col-12 col-md-3 col-lg-2 app-sidebar">
+          <nav class="app-sidebar-nav">
+            <a class="app-side-link" href="dashboard.html">
+              <i class="bi bi-grid-3x3-gap"></i>
+              <span>Dashboard</span>
+            </a>
+
+            <a class="app-side-link" href="salas.html">
+              <i class="bi bi-door-closed"></i>
+              <span>Salas</span>
+            </a>
+
+            <a class="app-side-link active" href="usuarios.html">
+              <i class="bi bi-people"></i>
+              <span>Usuários</span>
+            </a>
+
+            <a class="app-side-link" href="relatorios.html">
+              <i class="bi bi-clipboard-data"></i>
+              <span>Relatórios</span>
+            </a>
+
+            <a class="app-side-link" href="configuracao.html">
+              <i class="bi bi-gear"></i>
+              <span>Configurações</span>
+            </a>
+          </nav>
+        </aside>
+
+        <!-- CONTEÚDO -->
+        <section class="col-12 col-md-9 col-lg-10 p-3 p-md-4 app-content">
+          <!-- Topo -->
+          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3">
+            <div>
+              <h4 class="mb-0">Cadastrar Usuário</h4>
+              <div class="small text-muted">
+                Preencha os dados para criar um novo acesso
+              </div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <a class="btn btn-outline-secondary btn-sm" href="usuarios.html">
+                <i class="bi bi-arrow-left"></i> Voltar
+              </a>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="app-card p-4">
+            <!-- Mensagens -->
+            <div id="msgOk" class="alert alert-success d-none" role="alert">
+              <i class="bi bi-check-circle"></i> Usuário cadastrado com
+              sucesso!
+            </div>
+
+            <div id="msgErro" class="alert alert-danger d-none" role="alert">
+              <i class="bi bi-exclamation-triangle"></i> Verifique os campos
+              obrigatórios.
+            </div>
+
+            <form id="formUsuario" novalidate>
+              <div class="row g-3">
+                <!-- Nome -->
+                <div class="col-12 col-md-6">
+                  <label for="nome" class="form-label">Nome</label>
+                  <input type="text" class="form-control" id="nome" placeholder="Nome completo" minlength="3"
+                    required />
+                  <div class="invalid-feedback">
+                    Informe o nome (mín. 3 caracteres).
+                  </div>
+                </div>
+
+                <!-- Cargo -->
+                <div class="col-12 col-md-6">
+                  <label for="cargo" class="form-label">Cargo</label>
+                  <select class="form-select" id="cargo" required>
+                    <option value="" selected disabled>Selecione...</option>
+                    <option>Administrador</option>
+                    <option>Coordenação</option>
+                    <option>Docente</option>
+                    <option>Recepção</option>
+                    <option>Outro</option>
+                  </select>
+                  <div class="invalid-feedback">Selecione o cargo.</div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-12 col-md-6">
+                  <label for="email" class="form-label">E-mail</label>
+                  <div class="input-group">
+                    <span class="input-group-text app-input-icon"><i class="bi bi-envelope-fill"></i></span>
+                    <input type="email" class="form-control" id="email" placeholder="email@exemplo.com" required />
+                    <div class="invalid-feedback">
+                      Informe um e-mail válido.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Nível de acesso -->
+                <div class="col-12 col-md-6">
+                  <label for="nivel" class="form-label">Nível de acesso</label>
+                  <select class="form-select" id="nivel" required>
+                    <option value="" selected disabled>Selecione...</option>
+                    <option value="admin">Administrador</option>
+                    <option value="coordenacao">Coordenação</option>
+                    <option value="docente">Docente</option>
+                    <option value="recepcao">Recepção</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Selecione o nível de acesso.
+                  </div>
+                </div>
+
+                <!-- Senha -->
+                <div class="col-12 col-md-6">
+                  <label for="senha" class="form-label">Senha</label>
+                  <div class="input-group">
+                    <span class="input-group-text app-input-icon"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control" id="senha" placeholder="Crie uma senha" minlength="4"
+                      required />
+                    <button class="btn btn-outline-secondary" type="button" id="btnToggleSenha"
+                      aria-label="Mostrar/ocultar senha">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <div class="invalid-feedback">
+                      Informe uma senha (mín. 4 caracteres).
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Confirmar senha -->
+                <div class="col-12 col-md-6">
+                  <label for="confSenha" class="form-label">Confirmar senha</label>
+                  <div class="input-group">
+                    <span class="input-group-text app-input-icon"><i class="bi bi-shield-lock-fill"></i></span>
+                    <input type="password" class="form-control" id="confSenha" placeholder="Repita a senha"
+                      minlength="4" required />
+                    <div class="invalid-feedback">Confirme a senha.</div>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="my-4" />
+
+              <div class="d-flex flex-wrap gap-2 justify-content-end">
+                <button type="reset" class="btn btn-outline-secondary">
+                  <i class="bi bi-eraser"></i> Limpar
+                </button>
+
+                <button type="submit" class="btn app-btn-primary">
+                  <i class="bi bi-save"></i> Salvar Usuário
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (componente) -->
+  <div id="app-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ====== Loader de componentes ======
+    async function loadComponent(id, file) {
+      const el = document.getElementById(id);
+      const res = await fetch(file);
+      el.innerHTML = await res.text();
+    }
+
+    loadComponent("app-header", "components/header.html").then(() => {
+      const pageTitle = document.getElementById("pageTitle");
+      if (pageTitle) pageTitle.textContent = "Cadastrar Usuário";
+    });
+    loadComponent("app-footer", "components/footer.html");
+
+    // Proteção simples
+    if (localStorage.getItem("auth") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    // Mostrar/ocultar senha
+    const btnToggleSenha = document.getElementById("btnToggleSenha");
+    const senha = document.getElementById("senha");
+    btnToggleSenha.addEventListener("click", () => {
+      const isPass = senha.type === "password";
+      senha.type = isPass ? "text" : "password";
+      btnToggleSenha.innerHTML = isPass
+        ? '<i class="bi bi-eye-slash"></i>'
+        : '<i class="bi bi-eye"></i>';
+    });
+
+    // ====== Persistência mock em LocalStorage ======
+    const KEY_USERS = "usuarios";
+    function carregarUsuarios() {
+      const raw = localStorage.getItem(KEY_USERS);
+      return raw ? JSON.parse(raw) : [];
+    }
+    function salvarUsuarios(lista) {
+      localStorage.setItem(KEY_USERS, JSON.stringify(lista));
+    }
+
+    function mostrarMsg(id) {
+      document.getElementById("msgOk").classList.add("d-none");
+      document.getElementById("msgErro").classList.add("d-none");
+      document.getElementById(id).classList.remove("d-none");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // ====== Submit ======
+    const form = document.getElementById("formUsuario");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // validação HTML5
+      if (!form.checkValidity()) {
+        form.classList.add("was-validated");
+        mostrarMsg("msgErro");
+        return;
       }
 
-      loadComponent("app-header", "components/header.html").then(() => {
-        const pageTitle = document.getElementById("pageTitle");
-        if (pageTitle) pageTitle.textContent = "Cadastrar Usuário";
-      });
-      loadComponent("app-footer", "components/footer.html");
+      // validar senha x confirmação
+      const s1 = document.getElementById("senha").value;
+      const s2 = document.getElementById("confSenha").value;
+      if (s1 !== s2) {
+        form.classList.add("was-validated");
+        mostrarMsg("msgErro");
+        alert("As senhas não conferem.");
+        return;
+      }
 
-      // Proteção simples
-      if (localStorage.getItem("auth") !== "true") {
+      const novo = {
+        id: Date.now(),
+        nome: document.getElementById("nome").value.trim(),
+        cargo: document.getElementById("cargo").value,
+        email: document.getElementById("email").value.trim().toLowerCase(),
+        nivel: document.getElementById("nivel").value,
+        // OBS: mock. Em produção, NUNCA salvar senha assim no front.
+        senha: s1,
+      };
+
+      const lista = carregarUsuarios();
+
+      // evitar email duplicado
+      const existe = lista.some((u) => u.email === novo.email);
+      if (existe) {
+        mostrarMsg("msgErro");
+        alert("Já existe um usuário com este e-mail.");
+        return;
+      }
+
+      lista.push(novo);
+      salvarUsuarios(lista);
+
+      form.reset();
+      form.classList.remove("was-validated");
+      mostrarMsg("msgOk");
+
+      // voltar para lista depois de 1s
+      setTimeout(() => (window.location.href = "usuarios.html"), 900);
+    });
+
+    // Logout (delegação)
+    document.addEventListener("click", function (e) {
+      if (e.target.closest("#btnLogout")) {
+        localStorage.removeItem("auth");
         window.location.href = "login.html";
       }
+    });
+  </script>
+</body>
 
-      // Mostrar/ocultar senha
-      const btnToggleSenha = document.getElementById("btnToggleSenha");
-      const senha = document.getElementById("senha");
-      btnToggleSenha.addEventListener("click", () => {
-        const isPass = senha.type === "password";
-        senha.type = isPass ? "text" : "password";
-        btnToggleSenha.innerHTML = isPass
-          ? '<i class="bi bi-eye-slash"></i>'
-          : '<i class="bi bi-eye"></i>';
-      });
-
-      // ====== Persistência mock em LocalStorage ======
-      const KEY_USERS = "usuarios";
-      function carregarUsuarios() {
-        const raw = localStorage.getItem(KEY_USERS);
-        return raw ? JSON.parse(raw) : [];
-      }
-      function salvarUsuarios(lista) {
-        localStorage.setItem(KEY_USERS, JSON.stringify(lista));
-      }
-
-      function mostrarMsg(id) {
-        document.getElementById("msgOk").classList.add("d-none");
-        document.getElementById("msgErro").classList.add("d-none");
-        document.getElementById(id).classList.remove("d-none");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-
-      // ====== Submit ======
-      const form = document.getElementById("formUsuario");
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        // validação HTML5
-        if (!form.checkValidity()) {
-          form.classList.add("was-validated");
-          mostrarMsg("msgErro");
-          return;
-        }
-
-        // validar senha x confirmação
-        const s1 = document.getElementById("senha").value;
-        const s2 = document.getElementById("confSenha").value;
-        if (s1 !== s2) {
-          form.classList.add("was-validated");
-          mostrarMsg("msgErro");
-          alert("As senhas não conferem.");
-          return;
-        }
-
-        const novo = {
-          id: Date.now(),
-          nome: document.getElementById("nome").value.trim(),
-          cargo: document.getElementById("cargo").value,
-          email: document.getElementById("email").value.trim().toLowerCase(),
-          nivel: document.getElementById("nivel").value,
-          // OBS: mock. Em produção, NUNCA salvar senha assim no front.
-          senha: s1,
-        };
-
-        const lista = carregarUsuarios();
-
-        // evitar email duplicado
-        const existe = lista.some((u) => u.email === novo.email);
-        if (existe) {
-          mostrarMsg("msgErro");
-          alert("Já existe um usuário com este e-mail.");
-          return;
-        }
-
-        lista.push(novo);
-        salvarUsuarios(lista);
-
-        form.reset();
-        form.classList.remove("was-validated");
-        mostrarMsg("msgOk");
-
-        // voltar para lista depois de 1s
-        setTimeout(() => (window.location.href = "usuarios.html"), 900);
-      });
-
-      // Logout (delegação)
-      document.addEventListener("click", function (e) {
-        if (e.target.closest("#btnLogout")) {
-          localStorage.removeItem("auth");
-          window.location.href = "login.html";
-        }
-      });
-    </script>
-  </body>
 </html>
